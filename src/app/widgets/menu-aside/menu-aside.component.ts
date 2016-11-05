@@ -13,15 +13,15 @@ export class MenuAsideComponent implements OnInit {
   private current_url: string;
   private links: Array<any> = [
     {
-      "title": "Home",
+      "title": "Dashboard",
       "icon": "dashboard",
       "link": ['/']
     },
     {
-      "title": "Client",
-      "icon": "usd",
-      "link": ['/client']
-    },
+      "title": "Calendar",
+      "icon": "calendar",
+      "link": ['/calendar']
+    }/*,
     {
       "title": "Sub menu",
       "icon": "link",
@@ -35,7 +35,7 @@ export class MenuAsideComponent implements OnInit {
           "link": ['/page/3'],
         }
       ]
-    }
+    }*/
   ];
 
   constructor(

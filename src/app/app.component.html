@@ -1,19 +1,14 @@
-<app-header>Chargement du header</app-header>
+<app-header></app-header>
 
-<menu-aside>Chargement du menu</menu-aside>
+<menu-aside></menu-aside>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <toaster-container [toasterconfig]="toastrConfig"></toaster-container>
+    <!-- Content Header (Page header) -->
+    <toaster-container [toasterconfig]="toastrConfig"></toaster-container>
 
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="box box-default">
-      <div class="box-body">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  </section><!-- /.content -->
+    <!-- Main content -->
+    <router-outlet></router-outlet>
+
 </div><!-- /.content-wrapper -->
