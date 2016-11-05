@@ -58,17 +58,21 @@ import { ClientComponent } from './pages/client/client.component';
 let pages = [
   HomeComponent,
   PageNumComponent,
-  ClientComponent
+  ClientComponent,
+  DashboardComponent,
+  CalendarComponent
 ]
 
 //main bootstrap
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 @NgModule({
   declarations: [
     ...widgets,
-    ...pages
+    ...pages,
   ],
   imports: [
     ...modules,

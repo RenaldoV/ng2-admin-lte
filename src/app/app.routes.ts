@@ -1,16 +1,14 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {ModuleWithProviders} from "@angular/core";
+import {Routes, RouterModule} from "@angular/router";
+import {DashboardComponent} from "./pages/dashboard/dashboard.component";
+import {CalendarComponent} from "./pages/calendar/calendar.component";
 
 // Components
-import { HomeComponent } from './pages/home/home.component';
-import { PageNumComponent } from './pages/page-num/page-num.component';
-import { ClientComponent } from './pages/client/client.component';
 
-const routes: Routes = [
+const routes:Routes = [
     // Root
-    { path: '', component: HomeComponent},
-    { path: 'page/:id', component: PageNumComponent},
-    { path: 'client', component: ClientComponent }
+    {path: '', component: DashboardComponent},
+    {path: 'calendar', component: CalendarComponent}
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
+export const routing:ModuleWithProviders = RouterModule.forRoot(routes);
