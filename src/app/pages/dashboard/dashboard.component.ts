@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {PageBreadCrumb} from '../fragments/breadcrumbs/PageBreadCrumb';
 import {Alert, AlertType} from '../../models/Alert';
 import {AlertButton} from '../../models/AlertButton';
+import {MockHelper} from '../../services/MockHelper';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,22 @@ import {AlertButton} from '../../models/AlertButton';
 export class DashboardComponent implements OnInit {
   breadcrumbs: PageBreadCrumb;
   alerts:Alert[];
+
+  mockHelper:MockHelper;
+  shouldReact:number = 0;
+
+  @HostListener('window:keydown', ['$event'])
+  handleHotKey($event:KeyboardEvent) {
+    //the key event fires twice - ignore first fire as workaround
+    this.shouldReact = (++this.shouldReact % 2);
+    if(this.shouldReact === 0) return;
+
+    switch($event.keyCode){
+      case keyCodes.h:
+        this.alerts.push(this.mockHelper.getNextAlert());
+        break;
+    }
+  }
 
   constructor() { }
 
@@ -23,30 +40,11 @@ export class DashboardComponent implements OnInit {
 
     this.breadcrumbs.trail = ["Dashboard"];
     this.alerts = [];
-    this.alerts.push(this.getMockFalseAlarm());
-    this.alerts.push(this.getMockSuspiciousActivity());
-    this.alerts.push(this.getMockDistress());
-  }
 
-  private getMockDistress():Alert{
-    let mock:Alert = new Alert();
-    mock.userName = "B. Belcher";
-    mock.type = AlertType.DISTRESS;
-    return mock;
+    this.mockHelper = new MockHelper();
   }
+}
 
-  private getMockFalseAlarm():Alert{
-    let mock:Alert = new Alert();
-    mock.userName = "B. Lesner";
-    mock.type = AlertType.FALSE_ALARM;
-    return mock;
-  }
-
-  private getMockSuspiciousActivity():Alert{
-    let mock:Alert = new Alert();
-    mock.userName = "B. Me";
-    mock.type = AlertType.SUSPICIOUS_ACTIVITY;
-    return mock;
-  }
-
+export enum keyCodes{
+  h = 72
 }
