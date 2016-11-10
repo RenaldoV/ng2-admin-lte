@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {AlertType, Alert} from '../../models/Alert';
 
 
@@ -10,6 +10,8 @@ import {AlertType, Alert} from '../../models/Alert';
 export class SystemAlertComponent implements OnInit {
   @Input()
   public alert:Alert;
+  @Output()
+  dismissAlert = new EventEmitter();
 
   constructor() { }
 
@@ -22,6 +24,10 @@ export class SystemAlertComponent implements OnInit {
 
   public isSuspiciousActivity():boolean{
     return this.alert.type == AlertType.SUSPICIOUS_ACTIVITY;
+  }
+
+  dismiss(alertId:number){
+    this.dismissAlert.emit(alertId);
   }
 
 }

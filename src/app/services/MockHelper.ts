@@ -1,37 +1,41 @@
 import {AlertType, Alert} from '../models/Alert';
 export class MockHelper{
     arrCount:number = 0;
-    mockAlerts:Alert[];
+    nextId:number = 0;
+    mockAlerts:any[];
 
     constructor(){
         this.mockAlerts = [];
-        this.mockAlerts.push(this.getMockDistress());
-        this.mockAlerts.push(this.getMockFalseAlarm());
-        this.mockAlerts.push(this.getMockSuspiciousActivity());
+        this.mockAlerts.push(this.getMockDistress);
+        this.mockAlerts.push(this.getMockFalseAlarm);
+        this.mockAlerts.push(this.getMockSuspiciousActivity);
     }
 
     public getNextAlert():Alert{
-        this.arrCount = (++this.arrCount % 3);
-        return this.mockAlerts[this.arrCount];
+        this.arrCount = (++this.arrCount % this.mockAlerts.length);
+        let alert:Alert = this.mockAlerts[this.arrCount]();
+        alert.id = ++this.nextId;
+
+        return alert;
     }
 
     private getMockDistress():Alert{
         let mock:Alert = new Alert();
-        mock.userName = "B. Belcher";
+        mock.userName = "Mr B. Geyser";
         mock.type = AlertType.DISTRESS;
         return mock;
     }
 
     private getMockFalseAlarm():Alert{
         let mock:Alert = new Alert();
-        mock.userName = "B. Lesner";
+        mock.userName = "Ms K. Smidt";
         mock.type = AlertType.FALSE_ALARM;
         return mock;
     }
 
     private getMockSuspiciousActivity():Alert{
         let mock:Alert = new Alert();
-        mock.userName = "B. Me";
+        mock.userName = "Dr R. Kent";
         mock.type = AlertType.SUSPICIOUS_ACTIVITY;
         return mock;
     }

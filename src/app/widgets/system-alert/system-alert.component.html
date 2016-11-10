@@ -5,15 +5,13 @@
             <td>
                 <span class="alert-name">{{alert.userName}}</span><span class="alert-description">({{alert.type}})</span><br>
 
-                    <span  *ngIf="isDistress()">
-                        <button class="btn btn-primary">Dispatch Vehicle</button>
-                    </span>
                     <span *ngIf="isSuspiciousActivity()">
                         <button class="btn btn-primary">Notify Those Nearby</button>
                         <button class="btn btn-primary">View</button>
                     </span>
                     <span>
-                        <button class="btn btn-primary">Dismiss</button>
+                        <button class="btn btn-primary">Dispatch Vehicle</button>
+                        <button class="btn btn-primary" (click)="dismiss(alert.id)">Dismiss</button>
                     </span>
             </td>
         </tr>

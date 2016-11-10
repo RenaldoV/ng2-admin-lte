@@ -16,7 +16,7 @@
                     Alerts
                 </div>
                 <div class="box-body">
-                    <system-alert *ngFor="let alert of alerts" [alert]="alert"></system-alert>
+                    <system-alert (dismissAlert)="dismissAlert($event)" *ngFor="let alert of alerts" [alert]="alert"></system-alert>
                 </div>
             </section>
             </div>

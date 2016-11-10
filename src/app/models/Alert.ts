@@ -1,11 +1,10 @@
-import {AlertButton} from './AlertButton';
-export class AlertType{
-    static DISTRESS :string ="DISTRESS";
+export class AlertType {
+    static DISTRESS: string = "DISTRESS";
     static FALSE_ALARM: string = "FALSE_ALARM";
-    static SUSPICIOUS_ACTIVITY:string = "SUSPICIOUS_ACTIVITY";
+    static SUSPICIOUS_ACTIVITY: string = "SUSPICIOUS_ACTIVITY";
 }
-export class Alert{
+export class Alert {
+    id: number;
     type: string;
-    userName:string;
-    alertButtons:AlertButton[];
+    userName: string;
 }
