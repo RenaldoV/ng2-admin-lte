@@ -1,10 +1,11 @@
-    <table style="width: 100%; margin-bottom: 10px">
-        <tr>
-            <td style="width: 5px" [class]="alert.type"></td>
-            <td class="pad-5-px"></td>
-            <td>
-                <span class="alert-name">{{alert.userName}}</span><span class="alert-description">({{alert.type}})</span><br>
-
+<table class="well" style="width: 100%; margin-bottom: 10px">
+    <tr>
+        <td style="width: 5px" [class]="alert.type"></td>
+        <td class="pad-5-px"></td>
+        <td>
+            <span class="alert-name">{{alert.userName}}</span><span
+                class="alert-description">({{alert.type}})</span><br>
+            <span class="pull-right" style="margin: 5px">
                     <span *ngIf="isSuspiciousActivity()">
                         <button class="btn btn-primary">Notify Those Nearby</button>
                         <button class="btn btn-primary">View</button>
@@ -13,6 +14,7 @@
                         <button class="btn btn-primary">Dispatch Vehicle</button>
                         <button class="btn btn-primary" (click)="dismiss(alert.id)">Dismiss</button>
                     </span>
-            </td>
-        </tr>
-    </table>
+    </span>
+        </td>
+    </tr>
+</table>
