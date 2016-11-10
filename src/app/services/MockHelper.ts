@@ -39,4 +39,14 @@ export class MockHelper{
         mock.type = AlertType.SUSPICIOUS_ACTIVITY;
         return mock;
     }
+
+    makeFalseAlarm(alerts: Alert[]):Alert {
+        for(let i:number = 0; i < alerts.length; i++){
+            if(alerts[i].type === AlertType.DISTRESS){
+                alerts[i].type = AlertType.FALSE_ALARM;
+                return alerts[i];
+            }
+        }
+        return null;
+    }
 }

@@ -25,6 +25,9 @@ export class DashboardComponent implements OnInit {
             case keyCodes.h:
                 this.alerts.push(this.mockHelper.getNextAlert());
                 break;
+            case keyCodes.f:
+                let fa:Alert = this.mockHelper.makeFalseAlarm(this.alerts);
+                break;
         }
     }
 
@@ -45,8 +48,10 @@ export class DashboardComponent implements OnInit {
     dismissAlert(alertId){
         this.alerts = this.alerts.filter(alert =>{return alert.id  !== alertId});
     }
+
 }
 
 export enum keyCodes{
-    h = 72
+    h = 72,
+    f = 70
 }
