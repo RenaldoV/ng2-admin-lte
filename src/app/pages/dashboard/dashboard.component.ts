@@ -11,6 +11,7 @@ import {MockHelper} from '../../services/MockHelper';
 export class DashboardComponent implements OnInit {
     breadcrumbs: PageBreadCrumb;
     alerts: Alert[];
+    //Use some alertMAnager object - this will help with showing popup on each action.
 
     mockHelper: MockHelper;
     shouldReact: number = 0;
@@ -28,7 +29,12 @@ export class DashboardComponent implements OnInit {
             case keyCodes.f:
                 let fa:Alert = this.mockHelper.makeFalseAlarm(this.alerts);
                 break;
+            case keyCodes.s:
+                this.alerts.push(this.mockHelper.getNextSuspiciousActivity());
+                break;
+
         }
+        console.log($event);
     }
 
     constructor() {
@@ -53,5 +59,6 @@ export class DashboardComponent implements OnInit {
 
 export enum keyCodes{
     h = 72,
-    f = 70
+    f = 70,
+    s = 83
 }

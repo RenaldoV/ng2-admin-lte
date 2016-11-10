@@ -19,6 +19,24 @@ export class MockHelper{
         return alert;
     }
 
+    public getNextDistress():Alert{
+        let alert:Alert = this.getMockDistress();
+        alert.id = ++this.nextId;
+        return alert;
+    }
+
+    public getNextFalseAlarm():Alert{
+        let alert:Alert = this.getMockFalseAlarm();
+        alert.id = ++this.nextId;
+        return alert;
+    }
+
+    public getNextSuspiciousActivity():Alert{
+        let alert:Alert = this.getMockSuspiciousActivity();
+        alert.id = ++this.nextId;
+        return alert;
+    }
+
     private getMockDistress():Alert{
         let mock:Alert = new Alert();
         mock.userName = "Mr B. Geyser";
