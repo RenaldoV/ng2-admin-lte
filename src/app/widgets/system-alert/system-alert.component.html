@@ -1,0 +1,20 @@
+    <table style="width: 100%; margin-bottom: 10px">
+        <tr>
+            <td style="width: 5px" [class]="alert.type"></td>
+            <td class="pad-5-px"></td>
+            <td>
+                <span class="alert-name">{{alert.userName}}</span><span class="alert-description">({{alert.type}})</span><br>
+
+                    <span  *ngIf="isDistress()">
+                        <button class="btn btn-primary">Dispatch Vehicle</button>
+                    </span>
+                    <span *ngIf="isSuspiciousActivity()">
+                        <button class="btn btn-primary">Notify Those Nearby</button>
+                        <button class="btn btn-primary">View</button>
+                    </span>
+                    <span>
+                        <button class="btn btn-primary">Dismiss</button>
+                    </span>
+            </td>
+        </tr>
+    </table>

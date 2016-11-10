@@ -73,12 +73,14 @@ import {AppComponent} from './app.component';
 import {routing} from './app.routes';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {CalendarComponent} from './pages/calendar/calendar.component';
+import { SystemAlertComponent } from './widgets/system-alert/system-alert.component';
 
 @NgModule({
     declarations: [
         ...widgets,
         ...pages,
-        ...pageFragments
+        ...pageFragments,
+        SystemAlertComponent
     ],
     imports: [
         ...modules,
