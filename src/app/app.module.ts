@@ -1,7 +1,7 @@
 //external module
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {AlertModule, DatepickerModule} from 'ng2-bootstrap/ng2-bootstrap';
@@ -73,7 +73,8 @@ import {AppComponent} from './app.component';
 import {routing} from './app.routes';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {CalendarComponent} from './pages/calendar/calendar.component';
-import { SystemAlertComponent } from './widgets/system-alert/system-alert.component';
+import {SystemAlertComponent} from './widgets/system-alert/system-alert.component';
+import {AgmCoreModule} from 'angular2-google-maps/core';
 
 @NgModule({
     declarations: [
@@ -84,7 +85,12 @@ import { SystemAlertComponent } from './widgets/system-alert/system-alert.compon
     ],
     imports: [
         ...modules,
-        routing
+        routing,
+        ReactiveFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDivAqW0-gaH8aEAt56DPTsv5BJu9rZL60',
+            libraries: ["places"]
+        })
     ],
     providers: [
         ...services

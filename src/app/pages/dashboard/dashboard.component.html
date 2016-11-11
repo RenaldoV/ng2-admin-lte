@@ -6,8 +6,15 @@
                 <section id="map-container" class="box box-solid box-primary" >
                     <div class="box-header">
                         City View
+                        <div class="form-group">
+                            <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+                        </div>
                     </div>
-                    <div class="box-body"></div>
+                    <div class="box-body">
+                        <sebm-google-map [latitude]="lat" [longitude]="lng">
+                            <sebm-google-map-marker [latitude]="pta.lat" [longitude]="pta.long" [label]="pta.label"></sebm-google-map-marker>
+                        </sebm-google-map>
+                    </div>
                 </section>
             </div>
             <div class="col-md-6">
