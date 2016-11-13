@@ -1,36 +1,40 @@
 <breadcrumbs [breadCrumb]="breadcrumbs"></breadcrumbs>
 
 <section class="content">
-        <div class="row">
-            <div class="col-md-6">
-                <section id="map-container" class="box box-solid box-primary" >
-                    <div class="box-header">
-                        <h3 class="box-title">City View</h3>
-                        <div class="box-tools pull-right" style="width: 350px;">
-                            <div class="input-group">
-                                <input placeholder="Pretoria" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control input-sm" #search [formControl]="searchControl"/>
-                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <section id="map-container" class="box box-solid box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">City View</h3>
+                    <div class="box-tools pull-right" style="width: 350px;">
+                        <div class="input-group">
+                            <input placeholder="Pretoria" autocorrect="off" autocapitalize="off" spellcheck="off"
+                                   type="text" class="form-control input-sm" #search [formControl]="searchControl"/>
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
                         </div>
                     </div>
-                    <div class="box-body">
-                        <sebm-google-map [latitude]="lat" [longitude]="lng">
-                            <sebm-google-map-marker *ngFor="let car of dispatchVehicles" [latitude]="car.latitude" [longitude]="car.longitude" [label]="car.label" (markerClick)="showSender()"></sebm-google-map-marker>
-                        </sebm-google-map>
-                    </div>
-                </section>
-            </div>
-            <div class="col-md-6">
+                </div>
+                <div class="box-body">
+                    <sebm-google-map [latitude]="lat" [longitude]="lng">
+                        <sebm-google-map-marker *ngFor="let car of dispatchVehicles" [latitude]="car.latitude"
+                                                [longitude]="car.longitude" [label]="car.label"
+                                                (markerClick)="showSender()"></sebm-google-map-marker>
+                    </sebm-google-map>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6">
             <section id="alerts-container" class="box box-solid box-primary">
                 <div class="box-header">
                     <h3 class="box-title">Alerts</h3>
                 </div>
                 <div class="box-body">
-                    <system-alert (dismissAlert)="dismissAlert($event)" *ngFor="let alert of alerts" [alert]="alert"></system-alert>
+                    <system-alert (dismissAlert)="dismissAlert($event)" *ngFor="let alert of alerts"
+                                  [alert]="alert"></system-alert>
                 </div>
             </section>
-            </div>
         </div>
+    </div>
 </section>
 
 <modal #myModal>
@@ -38,12 +42,17 @@
         <h4 class="modal-title">Select a person to send this vehicle to</h4>
     </modal-header>
     <modal-body>
-
-        <ul>
-            <li *ngFor="let alert of alerts">{{alert.userName}}</li>
-        </ul>
+        {{selectedUser}}
+        <div class="btn-group-vertical" data-toggle="buttons" style="width: 100%">
+            <label *ngFor="let alert of alerts" class="btn btn-primary">
+                <input type="radio" autocomplete="off" [(ngModel)]="selectedUser" value="{{alert.userName}}"> <span class="alert-name">{{alert.userName}}</span>&nbsp;<span class="alert-description">({{alert.type}})</span>
+            </label>
+        </div>
     </modal-body>
-    <modal-footer [show-default-buttons]="true"></modal-footer>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="myModal" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss()">Send Vehicle</button>
+    </modal-footer>
 </modal>
 
 <div (window:keyup)="handleHotKey($event)"></div>

@@ -23,13 +23,14 @@ export class DashboardComponent implements OnInit {
     breadcrumbs: PageBreadCrumb;
     alerts: Alert[];
     dispatchVehicles: DispatchVehicle[];
-    //Use some alertMAnager object - this will help with showing popup on each action.
+    lat: number = -25.733113;
+    lng: number = 28.298407999999995;
+    selectedUser:string = "";
 
     mockHelper: MockHelper;
     shouldReact: number = 0;
 
-    lat: number = -25.733113;
-    lng: number = 28.298407999999995;
+
 
     @HostListener('window:keydown', ['$event'])
     handleHotKey($event: KeyboardEvent) {
@@ -90,8 +91,9 @@ export class DashboardComponent implements OnInit {
     }
 
     showSender() {
-        // this.modal.open(AdditionCalculateWindow, new AdditionCalculateWindowData(2, 3));
-        this.modal.open();
+        if(this.alerts.length > 0){
+            this.modal.open();
+        }
     }
 
 }
