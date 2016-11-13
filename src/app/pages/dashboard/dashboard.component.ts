@@ -5,6 +5,7 @@ import {MockHelper} from '../../services/MockHelper';
 import {MapsAPILoader} from 'angular2-google-maps/core';
 import {FormControl} from '@angular/forms';
 import {DispatchVehicle} from '../../models/DispatchVehicle';
+import {ModalComponent} from 'ng2-bs3-modal/components/modal';
 declare var google: any;
 
 @Component({
@@ -15,6 +16,8 @@ declare var google: any;
 export class DashboardComponent implements OnInit {
     @ViewChild("search")
     public searchElementRef: ElementRef;
+    @ViewChild('myModal')
+    modal: ModalComponent;
     public searchControl: FormControl;
 
     breadcrumbs: PageBreadCrumb;
@@ -88,6 +91,7 @@ export class DashboardComponent implements OnInit {
 
     showSender() {
         // this.modal.open(AdditionCalculateWindow, new AdditionCalculateWindowData(2, 3));
+        this.modal.open();
     }
 
 }

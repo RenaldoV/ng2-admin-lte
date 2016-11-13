@@ -33,5 +33,18 @@
         </div>
 </section>
 
+<modal #myModal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Select a person to send this vehicle to</h4>
+    </modal-header>
+    <modal-body>
+
+        <ul>
+            <li *ngFor="let alert of alerts">{{alert.userName}}</li>
+        </ul>
+    </modal-body>
+    <modal-footer [show-default-buttons]="true"></modal-footer>
+</modal>
+
 <div (window:keyup)="handleHotKey($event)"></div>
 

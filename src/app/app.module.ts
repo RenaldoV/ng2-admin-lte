@@ -28,7 +28,8 @@ let modules = [
     AgmCoreModule.forRoot({
         apiKey: 'AIzaSyDivAqW0-gaH8aEAt56DPTsv5BJu9rZL60',
         libraries: ["places"]
-    })
+    }),
+    Ng2Bs3ModalModule
 ];
 
 import {AppHeaderComponent} from "./widgets/app-header";
@@ -80,6 +81,7 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {CalendarComponent} from './pages/calendar/calendar.component';
 import {SystemAlertComponent} from './widgets/system-alert/system-alert.component';
 import {AgmCoreModule} from 'angular2-google-maps/core';
+import {Ng2Bs3ModalModule} from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @NgModule({
     declarations: [
