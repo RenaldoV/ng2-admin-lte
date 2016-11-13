@@ -1,9 +1,10 @@
-import {Component, OnInit, HostListener, ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit, HostListener, ElementRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {PageBreadCrumb} from '../fragments/breadcrumbs/PageBreadCrumb';
 import {Alert} from '../../models/Alert';
 import {MockHelper} from '../../services/MockHelper';
 import {MapsAPILoader} from 'angular2-google-maps/core';
 import {FormControl} from '@angular/forms';
+import {DispatchVehicle} from '../../models/DispatchVehicle';
 declare var google: any;
 
 @Component({
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
 
     breadcrumbs: PageBreadCrumb;
     alerts: Alert[];
+    dispatchVehicles: DispatchVehicle[];
     //Use some alertMAnager object - this will help with showing popup on each action.
 
     mockHelper: MockHelper;
@@ -25,10 +27,6 @@ export class DashboardComponent implements OnInit {
 
     lat: number = -25.733113;
     lng: number = 28.298407999999995;
-
-    pta:any = {lat:-25.733113,long:28.298407999999995,label:"P"};
-
-
 
     @HostListener('window:keydown', ['$event'])
     handleHotKey($event: KeyboardEvent) {
@@ -41,7 +39,7 @@ export class DashboardComponent implements OnInit {
                 this.alerts.push(this.mockHelper.getNextAlert());
                 break;
             case keyCodes.f:
-                let fa:Alert = this.mockHelper.makeFalseAlarm(this.alerts);
+                let fa: Alert = this.mockHelper.makeFalseAlarm(this.alerts);
                 break;
             case keyCodes.s:
                 this.alerts.push(this.mockHelper.getNextSuspiciousActivity());
@@ -52,8 +50,6 @@ export class DashboardComponent implements OnInit {
     }
 
     constructor(private mapsAPILoader: MapsAPILoader) {
-        console.log("mapsAPILoader");
-        console.log(mapsAPILoader);
     }
 
     ngOnInit() {
@@ -65,6 +61,7 @@ export class DashboardComponent implements OnInit {
 
         this.alerts = [];
         this.mockHelper = new MockHelper();
+        this.dispatchVehicles = this.mockHelper.getMockDispatchVehicles(this.alerts);
 
         this.searchControl = new FormControl();
         //load Places Autocomplete
@@ -79,17 +76,18 @@ export class DashboardComponent implements OnInit {
                 //set latitude and longitude
                 this.lat = place.geometry.location.lat();
                 this.lng = place.geometry.location.lng();
-
-                console.log("lat long");
-                console.log(place); //pretoria
-                console.log(this.lat); //-25.733113
-                console.log(this.lng); //28.298407999999995
             });
         });
     }
 
-    dismissAlert(alertId){
-        this.alerts = this.alerts.filter(alert =>{return alert.id  !== alertId});
+    dismissAlert(alertId) {
+        this.alerts = this.alerts.filter(alert => {
+            return alert.id !== alertId
+        });
+    }
+
+    showSender() {
+        // this.modal.open(AdditionCalculateWindow, new AdditionCalculateWindowData(2, 3));
     }
 
 }

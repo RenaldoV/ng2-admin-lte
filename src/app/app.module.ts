@@ -23,7 +23,12 @@ let modules = [
     HttpModule,
     RouterModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    ToasterModule
+    ToasterModule,
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyDivAqW0-gaH8aEAt56DPTsv5BJu9rZL60',
+        libraries: ["places"]
+    })
 ];
 
 import {AppHeaderComponent} from "./widgets/app-header";
@@ -85,12 +90,7 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
     ],
     imports: [
         ...modules,
-        routing,
-        ReactiveFormsModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDivAqW0-gaH8aEAt56DPTsv5BJu9rZL60',
-            libraries: ["places"]
-        })
+        routing
     ],
     providers: [
         ...services

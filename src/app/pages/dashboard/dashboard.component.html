@@ -5,14 +5,17 @@
             <div class="col-md-6">
                 <section id="map-container" class="box box-solid box-primary" >
                     <div class="box-header">
-                        City View
-                        <div class="form-group">
-                            <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+                        <h3 class="box-title">City View</h3>
+                        <div class="box-tools pull-right" style="width: 350px;">
+                            <div class="input-group">
+                                <input placeholder="Pretoria" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control input-sm" #search [formControl]="searchControl"/>
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            </div>
                         </div>
                     </div>
                     <div class="box-body">
                         <sebm-google-map [latitude]="lat" [longitude]="lng">
-                            <sebm-google-map-marker [latitude]="pta.lat" [longitude]="pta.long" [label]="pta.label"></sebm-google-map-marker>
+                            <sebm-google-map-marker *ngFor="let car of dispatchVehicles" [latitude]="car.latitude" [longitude]="car.longitude" [label]="car.label" (markerClick)="showSender()"></sebm-google-map-marker>
                         </sebm-google-map>
                     </div>
                 </section>
@@ -20,7 +23,7 @@
             <div class="col-md-6">
             <section id="alerts-container" class="box box-solid box-primary">
                 <div class="box-header">
-                    Alerts
+                    <h3 class="box-title">Alerts</h3>
                 </div>
                 <div class="box-body">
                     <system-alert (dismissAlert)="dismissAlert($event)" *ngFor="let alert of alerts" [alert]="alert"></system-alert>
