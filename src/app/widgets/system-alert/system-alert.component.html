@@ -7,11 +7,11 @@
                 class="alert-description">({{alert.type}})</span><br>
             <span class="pull-right" style="margin: 5px">
                     <span *ngIf="isSuspiciousActivity()">
-                        <button class="btn btn-primary">Notify Those Nearby</button>
-                        <button class="btn btn-primary">View</button>
+                        <button class="btn btn-primary" (click)="notifyNearby(alert.id)">Notify Those Nearby</button>
+                        <button class="btn btn-primary" (click)="viewAlertDetails(alert.id)">View</button>
                     </span>
                     <span>
-                        <button class="btn btn-primary">Dispatch Vehicle</button>
+                        <button class="btn btn-primary" (click)="dispatchVehicle(alert.id)">Dispatch Vehicle</button>
                         <button class="btn btn-primary" (click)="dismiss(alert.id)">Dismiss</button>
                     </span>
     </span>

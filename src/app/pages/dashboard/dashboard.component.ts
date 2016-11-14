@@ -1,4 +1,4 @@
-import {Component, OnInit, HostListener, ElementRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, HostListener, ElementRef, ViewChild} from '@angular/core';
 import {PageBreadCrumb} from '../fragments/breadcrumbs/PageBreadCrumb';
 import {Alert} from '../../models/Alert';
 import {MockHelper} from '../../services/MockHelper';
@@ -6,6 +6,8 @@ import {MapsAPILoader} from 'angular2-google-maps/core';
 import {FormControl} from '@angular/forms';
 import {DispatchVehicle} from '../../models/DispatchVehicle';
 import {ModalComponent} from 'ng2-bs3-modal/components/modal';
+import {AlertEvent, AlertEventType} from '../../widgets/system-alert/system-alert.component';
+import {ToasterService} from 'angular2-toaster';
 declare var google: any;
 
 @Component({
@@ -25,11 +27,10 @@ export class DashboardComponent implements OnInit {
     dispatchVehicles: DispatchVehicle[];
     lat: number = -25.733113;
     lng: number = 28.298407999999995;
-    selectedUser:string = "";
+    selectedUser: string = "";
 
     mockHelper: MockHelper;
     shouldReact: number = 0;
-
 
 
     @HostListener('window:keydown', ['$event'])
@@ -53,7 +54,7 @@ export class DashboardComponent implements OnInit {
         console.log($event);
     }
 
-    constructor(private mapsAPILoader: MapsAPILoader) {
+    constructor(private mapsAPILoader: MapsAPILoader, public toasterService:ToasterService) {
     }
 
     ngOnInit() {
@@ -84,14 +85,27 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    dismissAlert(alertId) {
-        this.alerts = this.alerts.filter(alert => {
-            return alert.id !== alertId
-        });
+    handleAlertEvent(alertEvent: AlertEvent) {
+        switch (alertEvent.type) {
+            case AlertEventType.DISMISS:
+                this.alerts = this.alerts.filter(alert => {
+                    return alert.id !== alertEvent.id
+                });
+                break;
+            case AlertEventType.NOTIFY_NEARBY:
+                this.toasterService.pop('success', 'Success', 'Notifications where sent.');
+                break;
+            case AlertEventType.VIEW:
+                this.toasterService.pop('info', 'Note', 'Functionality to view the details of an alert will be added shortly.');
+                break;
+            case AlertEventType.DISPATCH_VEHICLE:
+                this.toasterService.pop('success', 'Note', 'A vehicle has been sent to this location');
+                break;
+        }
     }
 
     showSender() {
-        if(this.alerts.length > 0){
+        if (this.alerts.length > 0) {
             this.modal.open();
         }
     }

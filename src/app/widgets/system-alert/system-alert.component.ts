@@ -3,31 +3,58 @@ import {AlertType, Alert} from '../../models/Alert';
 
 
 @Component({
-  selector: 'system-alert',
-  templateUrl: 'system-alert.component.html',
-  styleUrls: ['system-alert.component.css']
+    selector: 'system-alert',
+    templateUrl: 'system-alert.component.html',
+    styleUrls: ['system-alert.component.css']
 })
 export class SystemAlertComponent implements OnInit {
-  @Input()
-  public alert:Alert;
-  @Output()
-  dismissAlert = new EventEmitter();
+    @Input()
+    public alert: Alert;
+    @Output()
+    alertEvent = new EventEmitter();
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  public isDistress():boolean{
-    return this.alert.type == AlertType.DISTRESS;
-  }
+    public isDistress(): boolean {
+        return this.alert.type == AlertType.DISTRESS;
+    }
 
-  public isSuspiciousActivity():boolean{
-    return this.alert.type == AlertType.SUSPICIOUS_ACTIVITY;
-  }
+    public isSuspiciousActivity(): boolean {
+        return this.alert.type == AlertType.SUSPICIOUS_ACTIVITY;
+    }
 
-  dismiss(alertId:number){
-    this.dismissAlert.emit(alertId);
-  }
+    dismiss(alertId: number) {
+        this.alertEvent.emit(new AlertEvent(AlertEventType.DISMISS, alertId));
+    }
 
+    notifyNearby(alertId: number) {
+        this.alertEvent.emit(new AlertEvent(AlertEventType.NOTIFY_NEARBY, alertId));
+    }
+
+    viewAlertDetails(alertId: number) {
+        this.alertEvent.emit(new AlertEvent(AlertEventType.VIEW, alertId));
+    }
+
+    dispatchVehicle(alertId: number) {
+        this.alertEvent.emit(new AlertEvent(AlertEventType.DISPATCH_VEHICLE, alertId));
+    }
+
+}
+
+export class AlertEvent {
+    constructor(alertType: AlertEventType, alertId: number) {
+        this.type = alertType;
+        this.id = alertId;
+    }
+
+    type: AlertEventType;
+    id: number;
+}
+
+export enum AlertEventType{
+    DISMISS, NOTIFY_NEARBY, VIEW, DISPATCH_VEHICLE
 }

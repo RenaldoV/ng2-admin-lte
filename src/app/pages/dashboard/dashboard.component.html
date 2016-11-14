@@ -29,7 +29,7 @@
                     <h3 class="box-title">Alerts</h3>
                 </div>
                 <div class="box-body">
-                    <system-alert (dismissAlert)="dismissAlert($event)" *ngFor="let alert of alerts"
+                    <system-alert (alertEvent)="handleAlertEvent($event)" *ngFor="let alert of alerts"
                                   [alert]="alert"></system-alert>
                 </div>
             </section>
@@ -42,10 +42,11 @@
         <h4 class="modal-title">Select a person to send this vehicle to</h4>
     </modal-header>
     <modal-body>
-        {{selectedUser}}
         <div class="btn-group-vertical" data-toggle="buttons" style="width: 100%">
             <label *ngFor="let alert of alerts" class="btn btn-primary">
-                <input type="radio" autocomplete="off" [(ngModel)]="selectedUser" value="{{alert.userName}}"> <span class="alert-name">{{alert.userName}}</span>&nbsp;<span class="alert-description">({{alert.type}})</span>
+                <input type="radio" autocomplete="off" [(ngModel)]="selectedUser" value="{{alert.userName}}"> <span
+                    class="alert-name">{{alert.userName}}</span>&nbsp;<span
+                    class="alert-description">({{alert.type}})</span>
             </label>
         </div>
     </modal-body>
@@ -56,4 +57,5 @@
 </modal>
 
 <div (window:keyup)="handleHotKey($event)"></div>
+
 
