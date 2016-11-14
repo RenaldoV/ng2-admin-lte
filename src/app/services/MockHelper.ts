@@ -5,13 +5,41 @@ import {DispatchVehicle} from '../models/DispatchVehicle';
 export class MockHelper {
     arrCount: number = 0;
     nextId: number = 0;
+    static nextName:number = 0;
     mockAlerts: any[];
+    static names:string[] = [
+        "Mr S. Skow",
+        "Ms L. Lesser",
+        "Mr S. Sankey",
+        "Ms N. Newhart",
+        "Mr S. Sarvis",
+        "Ms G. Gloss",
+        "Mr L. Linton",
+        "Ms G. Grove",
+        "Mr G. Gorden",
+        "Mr I. Ibanez",
+        "Ms N. Nevers",
+        "Mr A. Alto",
+        "Ms A. Aikens",
+        "Ms L. Livesay",
+        "Mr R. Reach",
+        "Ms F. Frasca",
+        "Mr J. Jacquet",
+        "Ms B. Bock",
+        "Ms C. Conroy",
+        "Mr J. Joyner"
+    ];
+
+    public static getNextName():string{
+        this.nextName = (++this.nextName % this.names.length);
+        return this.names[this.nextName];
+    }
 
     constructor() {
         this.mockAlerts = [];
-        this.mockAlerts.push(this.getMockDistress);
-        this.mockAlerts.push(this.getMockFalseAlarm);
-        this.mockAlerts.push(this.getMockSuspiciousActivity);
+        this.mockAlerts.push(this.getNextDistress);
+        this.mockAlerts.push(this.getNextFalseAlarm);
+        this.mockAlerts.push(this.getNextSuspiciousActivity);
     }
 
     public getNextAlert(): Alert {
@@ -23,45 +51,31 @@ export class MockHelper {
     }
 
     public getNextDistress(): Alert {
-        let alert: Alert = this.getMockDistress();
-        alert.id = ++this.nextId;
-        return alert;
+        let mock: Alert = new Alert();
+        mock.userName = MockHelper.getNextName();
+        mock.type = AlertType.DISTRESS;
+        mock.id = ++this.nextId;
+        return mock;
     }
 
     public getNextFalseAlarm(): Alert {
-        let alert: Alert = this.getMockFalseAlarm();
-        alert.id = ++this.nextId;
-        return alert;
+        let mock: Alert = new Alert();
+        mock.userName = MockHelper.getNextName();
+        mock.type = AlertType.FALSE_ALARM;
+        mock.id = ++this.nextId;
+        return mock;
     }
 
     public getNextSuspiciousActivity(): Alert {
-        let alert: Alert = this.getMockSuspiciousActivity();
-        alert.id = ++this.nextId;
-        return alert;
-    }
-
-    private getMockDistress(): Alert {
         let mock: Alert = new Alert();
-        mock.userName = "Mr B. Geyser";
-        mock.type = AlertType.DISTRESS;
-        return mock;
-    }
-
-    private getMockFalseAlarm(): Alert {
-        let mock: Alert = new Alert();
-        mock.userName = "Ms K. Smidt";
-        mock.type = AlertType.FALSE_ALARM;
-        return mock;
-    }
-
-    private getMockSuspiciousActivity(): Alert {
-        let mock: Alert = new Alert();
-        mock.userName = "Dr R. Kent";
+        mock.userName = MockHelper.getNextName();
         mock.type = AlertType.SUSPICIOUS_ACTIVITY;
+        mock.id = ++this.nextId;
         return mock;
     }
 
-    makeFalseAlarm(alerts: Alert[]): Alert {
+
+    public makeFalseAlarm(alerts: Alert[]): Alert {
         for (let i: number = 0; i < alerts.length; i++) {
             if (alerts[i].type === AlertType.DISTRESS) {
                 alerts[i].type = AlertType.FALSE_ALARM;
@@ -71,7 +85,7 @@ export class MockHelper {
         return null;
     }
 
-    public getMockDispatchVehicles(alerts: Alert[]): DispatchVehicle[] {
+    public getMockDispatchVehicles(): DispatchVehicle[] {
         let ptaCar: DispatchVehicle = <DispatchVehicle>{};
         ptaCar.latitude = -25.733113;
         ptaCar.longitude = 28.298407999999995;

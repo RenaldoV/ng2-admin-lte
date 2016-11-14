@@ -35,19 +35,24 @@ export class DashboardComponent implements OnInit {
 
     @HostListener('window:keydown', ['$event'])
     handleHotKey($event: KeyboardEvent) {
+        if(!$event.altKey) return;
+
         //the key event fires twice - ignore first fire as workaround
         this.shouldReact = (++this.shouldReact % 2);
         if (this.shouldReact === 0) return;
 
         switch ($event.keyCode) {
-            case keyCodes.h:
+            case keyCodes.a:
                 this.alerts.push(this.mockHelper.getNextAlert());
                 break;
-            case keyCodes.f:
-                let fa: Alert = this.mockHelper.makeFalseAlarm(this.alerts);
+            case keyCodes.x:
+                this.mockHelper.makeFalseAlarm(this.alerts);
                 break;
             case keyCodes.s:
                 this.alerts.push(this.mockHelper.getNextSuspiciousActivity());
+                break;
+            case keyCodes.z:
+                this.alerts.push(this.mockHelper.getNextDistress());
                 break;
 
         }
@@ -66,7 +71,7 @@ export class DashboardComponent implements OnInit {
 
         this.alerts = [];
         this.mockHelper = new MockHelper();
-        this.dispatchVehicles = this.mockHelper.getMockDispatchVehicles(this.alerts);
+        this.dispatchVehicles = this.mockHelper.getMockDispatchVehicles();
 
         this.searchControl = new FormControl();
         //load Places Autocomplete
@@ -113,7 +118,8 @@ export class DashboardComponent implements OnInit {
 }
 
 export enum keyCodes{
-    h = 72,
-    f = 70,
-    s = 83
+    a = 65, //'random' alerts
+    s = 83, //suspicious activity
+    z = 90, //distress
+    x = 88 //false alarm
 }
