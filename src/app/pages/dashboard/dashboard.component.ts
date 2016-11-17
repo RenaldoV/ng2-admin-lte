@@ -115,6 +115,10 @@ export class DashboardComponent implements OnInit {
         }
     }
 
+    sortedAlerts():Alert[]{
+        return this.alerts.sort((a:Alert,b:Alert)=>{return a.getPriority() - b.getPriority()});
+    }
+
 }
 
 export enum keyCodes{

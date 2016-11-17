@@ -7,4 +7,20 @@ export class Alert {
     id: number;
     type: string;
     userName: string;
+    alertTime: Date;
+
+    constructor(){
+        this.alertTime = new Date();
+    }
+
+    getPriority(): number {
+        switch (this.type) {
+            case AlertType.DISTRESS:
+                return 1;
+            case AlertType.SUSPICIOUS_ACTIVITY:
+                return 2;
+            case AlertType.FALSE_ALARM:
+                return 3;
+        }
+    }
 }

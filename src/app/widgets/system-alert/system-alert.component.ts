@@ -43,6 +43,17 @@ export class SystemAlertComponent implements OnInit {
         this.alertEvent.emit(new AlertEvent(AlertEventType.DISPATCH_VEHICLE, alertId));
     }
 
+    getBackgroundClass(type:string):string{
+        switch (type){
+            case AlertType.DISTRESS:
+                return 'red-low-opacity';
+            case AlertType.FALSE_ALARM:
+                return 'green-low-opacity';
+            case AlertType.SUSPICIOUS_ACTIVITY:
+                return 'yellow-low-opacity';
+        }
+    }
+
 }
 
 export class AlertEvent {
