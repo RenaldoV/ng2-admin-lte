@@ -17,8 +17,11 @@
                 <div class="box-body">
                     <sebm-google-map [latitude]="lat" [longitude]="lng">
                         <sebm-google-map-marker *ngFor="let car of dispatchVehicles" [latitude]="car.latitude"
-                                                [longitude]="car.longitude" [label]="car.label"
+                                                [longitude]="car.longitude" [iconUrl]="car.iconUrl"
                                                 (markerClick)="showSender()"></sebm-google-map-marker>
+                        <sebm-google-map-marker *ngFor="let alert of alerts" [latitude]="alert.latitude"
+                                                [longitude]="alert.longitude" [label]="alert.label" [iconUrl]="alert.iconUrl"
+                                                ></sebm-google-map-marker>
                     </sebm-google-map>
                 </div>
             </section>

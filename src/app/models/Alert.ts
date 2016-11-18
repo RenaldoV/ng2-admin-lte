@@ -1,15 +1,18 @@
+import {Mapable} from "./Mapable";
 export class AlertType {
     static DISTRESS: string = "DISTRESS";
     static FALSE_ALARM: string = "FALSE_ALARM";
     static SUSPICIOUS_ACTIVITY: string = "SUSPICIOUS_ACTIVITY";
 }
-export class Alert {
+export class Alert extends Mapable{
     id: number;
     type: string;
     userName: string;
     alertTime: Date;
 
+
     constructor(){
+        super();
         this.alertTime = new Date();
     }
 
